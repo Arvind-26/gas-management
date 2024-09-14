@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "address is required"]
     },
+    cylinder: {
+        type: Number,
+        default: 12
+    },
     isVerified: {
         type: Boolean,
         default: false
