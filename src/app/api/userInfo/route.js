@@ -24,7 +24,6 @@ export async function POST(req) {
         const { email, checked } = body
 
         const update = await Request.updateOne({ email, checked }, { $set: { checked: true } })
-        await update.save()
 
     } catch (error) {
         return NextResponse.json({ error: error.message }, { status: 500 })

@@ -9,8 +9,8 @@ connect()
 export async function POST(req) {
     try {
         const body = await req.json()
-        const { firstname, lastname, age, email, password, phn_no, address } = body
-        
+        const { firstname, lastname, age, gender, email, password, phn_no, address } = body
+
         console.log(body)
 
         const existingUser = await User.findOne({ email })
@@ -25,6 +25,7 @@ export async function POST(req) {
             firstname,
             lastname,
             age,
+            gender,
             email,
             password: hashedPassword,
             phn_no,
@@ -33,7 +34,7 @@ export async function POST(req) {
 
         const saveUser = await newUser.save()
 
-        await sendEmail({email, emailType: "VERIFY", userId: saveUser._id})
+        await sendEmail({ email, emailType: "VERIFY", userId: saveUser._id })
 
         return NextResponse.json({ message: "signup sucessful" }, { status: 200 })
 
