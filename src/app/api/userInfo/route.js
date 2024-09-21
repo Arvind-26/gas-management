@@ -6,7 +6,7 @@ connect()
 
 export async function POST(req) {
     try {
-        const body = req.json()
+        const body = await req.json()
         const { email } = body
 
         const user = await User.findOne({ email })
@@ -20,7 +20,7 @@ export async function POST(req) {
 
 export async function POST(req) {
     try {
-        const body = req.json()
+        const body = await req.json()
         const { email, checked } = body
 
         const update = await Request.updateOne({ email, checked }, { $set: { checked: true } })
