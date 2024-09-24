@@ -9,6 +9,9 @@ const requestSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    type:{
+        type: String
+    },
     date:{
         type: Date,
         default: Date.now()

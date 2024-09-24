@@ -9,6 +9,8 @@ connect()
 export async function POST(req) {
     try {
         const data = jwtdata(req)
+        const body = await req.json()
+        const { type } = body
 
         const existingRequest = await Request.findOne({ email: data.email })
         if (existingRequest) {
@@ -26,7 +28,8 @@ export async function POST(req) {
         }
 
         const request = new Request({
-            email: data.email
+            email: data.email,
+            type: type
         })
         await request.save()
 
