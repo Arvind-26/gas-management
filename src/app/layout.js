@@ -1,5 +1,6 @@
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer"
 
 export const metadata = {
   title: "E Gas",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
       <body className={` antialiased scrollbar`}>
         <Header />
         {children}
+        <Footer/>
       </body>
     </html>
   );
