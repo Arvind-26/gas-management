@@ -17,7 +17,7 @@ const Footer = () => {
                     
                     <div class="mb-4 md:mb-0">
                         <ul class="flex flex-col md:flex-row gap-4 text-sm">
-                            <li><Link href="#Top" class="hover:text-[#c9371a]">Home</Link></li>
+                            <li><Link href="/" class="hover:text-[#c9371a]">Home</Link></li>
                             <li><Link href="#Blog" class="hover:text-[#c9371a]">About</Link></li>
                             <li><Link href="#Package" class="hover:text-[#c9371a]">LPG Booking</Link></li>
                             <li><Link href="#Service" class="hover:text-[#c9371a]">Service</Link></li>

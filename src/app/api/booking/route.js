@@ -20,11 +20,11 @@ export async function POST(req) {
         }
 
         const pendingCylinderUser = await User.findOne({ email: data.email })
-        if (pendingCylinderUser.cylinder < 1) {
-            console.log("payment")
+        if (pendingCylinderUser.cylinder > 0 && type === "large") {
+            await User.updateOne({ email: data.email }, { $inc: { cylinder: -1 } });
         }
         else {
-            await User.updateOne({ email: data.email }, { $inc: { cylinder: -1 } });
+            console.log("payment")
         }
 
         const request = new Request({

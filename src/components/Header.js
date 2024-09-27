@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Header = () => {
     const sideBar = useRef(null);
@@ -18,7 +19,7 @@ const Header = () => {
                         <span className='font-bold md:text-xl text-lg cursor-default'>E GAS</span>
                     </div>
                     <div className='hidden md:flex items-center gap-10 font-semibold'>
-                        <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Home</span>
+                        <Link href="/"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Home</span></Link>
                         <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>About</span>
                         <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Services</span>
                         <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Contact</span>
