@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-const Card = ({ type, img }) => {
+const Card = ({ type, img, price }) => {
     return (
         <div className="flex justify-center mt-10">
             <div className="h-auto w-72 bg-gradient-to-r from-[#111] to-[#333] relative rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
@@ -11,7 +11,7 @@ const Card = ({ type, img }) => {
                 </div>
 
                 <div className="bg-[#0000009d] font-bold text-[#e63946] rounded-lg text-3xl flex justify-center items-center py-2 w-32 absolute top-20 left-1/2 transform -translate-x-1/2 shadow-xl">
-                    ₹800
+                    ₹{price}
                 </div>
 
                 <Image

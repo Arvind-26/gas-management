@@ -51,9 +51,9 @@ export default function Home() {
 
       <section className="grid-cols-1 md:grid-cols-4 grid mt-20 mb-10">
         <h1 className="text-[#c9371a] md:text-5xl text-4xl font-bold m-auto">LPG Booking</h1>
-        <Card type={"Large"} img={"/home-lpg.png"} />
-        <Card type={"Large"} img={"/medium-lpg.png"} />
-        <Card type={"Small"} img={"/small-lpg.jpg"} />
+        <Card type={"Large"} img={"/home-lpg.png"} price={800}/>
+        <Card type={"Medium"} img={"/medium-lpg.png"} price={600}/>
+        <Card type={"Small"} img={"/small-lpg.jpg"} price={400}/>
       </section>
 
       <section className="flex md:flex-row flex-col mt-10 md:gap-32 gap-5 border-t-2 p-12">

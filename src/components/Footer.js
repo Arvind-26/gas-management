@@ -26,7 +26,7 @@ const Footer = () => {
 
                     
                     <div class="mb-4 md:mb-0">
-                        <p class="text-sm"><strong>Address:</strong> 123 Street, City, Country</p>
+                        <p class="text-sm"><strong>Address:</strong> 123 Street, Pune, Maharashtra</p>
                         <p class="text-sm"><strong>Phone:</strong> (123) 456-7890</p>
                         <p class="text-sm"><strong>Email:</strong> info@Egas.com</p>
                     </div>

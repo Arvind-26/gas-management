@@ -1,10 +1,10 @@
 import User from '@/models/userModel';
 import nodemailer from 'nodemailer'
-import { uuid } from 'uuidv4';
+import { v1 as uuidv1 } from 'uuid';
 
 export const sendEmail = async ({ email, emailType, userId }) => {
   try {
-    const uuidToken = uuid()
+    const uuidToken = uuidv1();
     if (emailType === "VERIFY") {
       await User.findByIdAndUpdate(userId,
         { verifyToken: uuidToken, verifyTokenExpiry: Date.now() + 1800000 }
@@ -124,7 +124,7 @@ export const sendEmail = async ({ email, emailType, userId }) => {
           <tr>
             <td align="center" valign="top" style="padding: 36px 24px;">
               <a href="${process.env.DOMAIN}" target="_blank" style="display: inline-block;">
-                <img src="./img/paste-logo-light@2x.png" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
+                <img src="${process.env.DOMAIN}/_next/image?url=%2Flogo.png&w=128&q=75" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
               </a>
             </td>
           </tr>
@@ -149,7 +149,7 @@ export const sendEmail = async ({ email, emailType, userId }) => {
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">${emailType === 'VERIFY' ? "Tap the button below to confirm your email address. If you didn't create an account with <a href='`${process.env.DOMAIN}`'>E Gas</a>, you can safely delete this email." : "Tap the button below to reset your password. If you didn't create an account with <a href='${process.env.DOMAIN}'>E Gas</a>, you can safely delete this email."}</p>
+              <p style="margin: 0;">${emailType === 'VERIFY' ? `Tap the button below to confirm your email address. If you didn't create an account with <a href='${process.env.DOMAIN}'>E Gas</a>, you can safely delete this email.` : `Tap the button below to reset your password. If you didn't create an account with <a href='${process.env.DOMAIN}'>E Gas</a>, you can safely delete this email.`}</p>
             </td>
           </tr>
 
@@ -201,7 +201,7 @@ export const sendEmail = async ({ email, emailType, userId }) => {
           <tr>
             <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
               <p style="margin: 0;">To stop receiving these emails, you can <a href="${process.env.DOMAIN}" target="_blank">unsubscribe</a> at any time.</p>
-              <p style="margin: 0;">street 123</p>
+              <p style="margin: 0;">street 123, Pune, Maharastra</p>
             </td>
           </tr>
 

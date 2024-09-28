@@ -1,6 +1,22 @@
+'use client'
 import React from 'react'
+import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
 
 const verifyemail = () => {
+    const searchParams = useSearchParams();
+    let token = searchParams.get("token");
+
+    const verifyEmail = async () => {
+        try {
+            const response = await axios.post(`/api/users/verifyemail`, JSON.stringify({ 'token': token }))
+            console.log(response)
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="flex items-center justify-center min-h-screen bg-black">
             <div className="w-full max-w-md p-8 m-3 space-y-8 bg-gray-900 shadow-lg rounded-lg">
@@ -15,13 +31,12 @@ const verifyemail = () => {
                     <button
                         type="button"
                         className="w-full py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#c9371a] hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#c9371a] transition-colors duration-300"
-                    >
+                        onClick={verifyEmail}>
                         Verify Email
                     </button>
                 </div>
             </div>
         </div>
-
     )
 }
 

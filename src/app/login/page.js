@@ -1,6 +1,9 @@
 'use client'
 import React, { useState } from 'react'
 import Link from "next/link"
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const login = () => {
 
@@ -17,13 +20,18 @@ const login = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Login Data Submitted: ", formData);
+        try {
+            await axios.post(`/api/users/login`, JSON.stringify(formData))
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
     };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-black">
+            <ToastContainer />
             <div className="w-full max-w-md m-3 p-8 space-y-8 bg-gray-900 shadow-lg rounded-lg">
                 <div>
                     <h2 className="text-3xl font-bold text-center text-white">Login to Your Account</h2>
