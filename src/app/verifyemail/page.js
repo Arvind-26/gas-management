@@ -1,24 +1,32 @@
 'use client'
 import React from 'react'
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie';
 
 const verifyemail = () => {
+    let cok = Cookies.get('token')
+    const router = useRouter()
+    if(cok){
+        router.push('/profile')        
+    }
     const searchParams = useSearchParams();
     let token = searchParams.get("token");
 
     const verifyEmail = async () => {
         try {
-            const response = await axios.post(`/api/users/verifyemail`, JSON.stringify({ 'token': token }))
-            console.log(response)
-            
+            await axios.post(`/api/users/verifyemail`, JSON.stringify({ 'token': token }))
+            router.push("/login")
         } catch (error) {
-            console.log(error);
+            toast.error(error.response.data.error)
         }
     }
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-black">
+            <ToastContainer />
             <div className="w-full max-w-md p-8 m-3 space-y-8 bg-gray-900 shadow-lg rounded-lg">
                 <div className="text-center">
                     <h2 className="text-3xl font-bold text-white">Verify Your Email</h2>

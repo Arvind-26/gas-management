@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const setpassword = () => {
-    // const router = useRouter()
+    const router = useRouter()
 
     const searchParams = useSearchParams();
     let token = searchParams.get("token");
@@ -28,7 +28,7 @@ const setpassword = () => {
         e.preventDefault();
         try {
             if (password == cnfPassword) {
-                await axios.post(`/api/users/passwordchange`, JSON.stringify({ 'password': password,'token': token }))
+                await axios.post(`/api/users/passwordchange`, JSON.stringify({ 'password': password, 'token': token }))
                 toast.success("password changed sucessfully")
                 router.push('/login')
             }

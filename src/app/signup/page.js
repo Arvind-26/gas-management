@@ -4,8 +4,16 @@ import Link from "next/link"
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 const signup = () => {
+    let cok = Cookies.get('token')
+    const router = useRouter()
+    if(cok){
+        router.push('/profile')        
+    }
+
     const instruction = useRef();
     const createaccount = useRef();
 
@@ -33,6 +41,7 @@ const signup = () => {
         e.preventDefault();
         try {
             await axios.post(`/api/users/signup`, JSON.stringify(formData))
+            toast.error("verification email sent sucessfully");
         } catch (error) {
             toast.error(error.response.data.message);
         }

@@ -22,7 +22,7 @@ const Header = () => {
                         <Link href="/"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Home</span></Link>
                         <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>About</span>
                         <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Services</span>
-                        <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Contact</span>
+                        <Link href="/profile"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Profile</span></Link>
                     </div>
                     <div className='md:hidden flex items-center gap-10 font-semibold' onClick={toggleSideBar}><i class="fa-solid fa-bars"></i></div>
                 </div>
@@ -33,27 +33,27 @@ const Header = () => {
                         </div>
 
                         <nav className="mt-10">
-                            <a href="#" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                            <Link href="/" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                 <i className="fas fa-home mr-3"></i>
-                                Dashboard
-                            </a>
-                            <a href="#" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                                Home
+                            </Link>
+                            <Link href="/profile" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                 <i className="fas fa-user mr-3"></i>
                                 Profile
-                            </a>
-                            <a href="#" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                            </Link>
+                            <Link href="#" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                 <i className="fas fa-cog mr-3"></i>
-                                Settings
-                            </a>
+                                About
+                            </Link>
                         </nav>
 
                         <hr className="my-4 border-gray-700" />
 
                         <nav>
-                            <a href="#" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                            <Link href="/profile" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                 <i className="fas fa-sign-out-alt mr-3"></i>
                                 Logout
-                            </a>
+                            </Link>
                         </nav>
                     </div>
                 </div>

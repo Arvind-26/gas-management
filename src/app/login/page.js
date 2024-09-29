@@ -1,11 +1,18 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from "next/link"
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 const login = () => {
+    let cok = Cookies.get('token')
+    const router = useRouter()
+    if(cok){
+        router.push('/profile')        
+    }
 
     const [formData, setFormData] = useState({
         email: "",
@@ -24,6 +31,7 @@ const login = () => {
         e.preventDefault();
         try {
             await axios.post(`/api/users/login`, JSON.stringify(formData))
+            router.push("/profile")
         } catch (error) {
             toast.error(error.response.data.message);
         }
