@@ -14,6 +14,8 @@ const login = () => {
         router.push('/profile')        
     }
 
+    const { setIsLoggedIn } = useAuth()
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -31,6 +33,7 @@ const login = () => {
         e.preventDefault();
         try {
             await axios.post(`/api/users/login`, JSON.stringify(formData))
+            setIsLoggedIn(true)
             router.push("/profile")
         } catch (error) {
             toast.error(error.response.data.message);

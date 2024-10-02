@@ -13,15 +13,15 @@ export default function Home() {
       <div className=' md:text-3xl text-xl'>Affordable and Precise</div>
       <div className=' md:text-4xl text-2xl font-bold font-serif my-2'>Cooking Gas Agency</div>
       <div className="flex space-x-3 mt-3">
-        {isLoggedIn?<button  className="bg-transparent font-semibold border-2 border-white md:px-8 px-3 md:py-2 py-1 rounded-2xl shadow-lg hover:bg-white hover:text-[#c9371a] transition-colors duration-300">E Gas</button>:
-        <><Link href="/signup">
-          <button className="bg-[#c9371a] font-semibold md:px-8 px-3 md:py-2 py-1 rounded-2xl shadow-lg hover:bg-[#b32f16] transition-colors duration-300">
-            Register
-          </button></Link>
-        <Link href="/login">
-          <button className="bg-transparent font-semibold border-2 border-white md:px-8 px-3 md:py-2 py-1 rounded-2xl shadow-lg hover:bg-white hover:text-[#c9371a] transition-colors duration-300">
-            Login
-          </button></Link></>}
+        {isLoggedIn ? <button className="bg-transparent font-semibold border-2 border-white md:px-8 px-3 md:py-2 py-1 rounded-2xl shadow-lg hover:bg-white hover:text-[#c9371a] transition-colors duration-300">E Gas</button> :
+          <><Link href="/signup">
+            <button className="bg-[#c9371a] font-semibold md:px-8 px-3 md:py-2 py-1 rounded-2xl shadow-lg hover:bg-[#b32f16] transition-colors duration-300">
+              Register
+            </button></Link>
+            <Link href="/login">
+              <button className="bg-transparent font-semibold border-2 border-white md:px-8 px-3 md:py-2 py-1 rounded-2xl shadow-lg hover:bg-white hover:text-[#c9371a] transition-colors duration-300">
+                Login
+              </button></Link></>}
       </div>
     </div>
 

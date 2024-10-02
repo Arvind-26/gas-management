@@ -6,13 +6,49 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import Script from 'next/script';
 
 const signup = () => {
     let cok = Cookies.get('token')
     const router = useRouter()
-    if(cok){
-        router.push('/profile')        
+    if (cok) {
+        router.push('/profile')
     }
+    
+    const [isProcessing, setIsProcessing] = useState(false)
+    const [Amount, setAmount] = useState(9000)
+
+    const handlePayment = async (e) => {
+        e.preventDefault()
+        setIsProcessing(true);
+        try {
+            const data = await axios.post(`/api/payment`,
+                JSON.stringify({ amount: Amount * 100 })
+            );
+
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+                amount: Amount * 100,
+                currency: "INR",
+                name: "E Gas",
+                description: "LPG Purchase",
+                order_id: data.orderId,
+                handler: function (response) {
+                    console.log("Payment Successful", response);
+                },
+                theme: {
+                    color: "#3399cc"
+                }
+            };
+            const rzp1 = new window.Razorpay(options);
+            rzp1.open();
+        } catch (error) {
+            console.error("Error in Payment:", error);
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
 
     const instruction = useRef();
     const createaccount = useRef();
@@ -35,13 +71,14 @@ const signup = () => {
             ...prevData,
             [name]: name === "age" || name === "phn_no" ? Number(value) : value,
         }));
+        handlePayment()
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await axios.post(`/api/users/signup`, JSON.stringify(formData))
-            toast.error("verification email sent sucessfully");
+            toast.success("verification email sent sucessfully");
         } catch (error) {
             toast.error(error.response.data.message);
         }
@@ -54,6 +91,7 @@ const signup = () => {
 
     return (
         <>
+        <Script src="https://checkout.razorpay.com/v1/checkout.js" />
             <div ref={instruction} className="flex items-center justify-center min-h-screen bg-black">
                 <div className="w-full max-w-3xl p-8 bg-gray-900 shadow-lg rounded-lg">
                     <h1 className="text-4xl font-bold text-center text-white mb-8">
@@ -103,9 +141,9 @@ const signup = () => {
                         </div>
 
                         <div className="text-center mt-8">
-                                <button className="bg-[#c9371a] hover:bg-red-600 text-white font-bold py-2 px-6 rounded" onClick={sign}>
-                                    Sign Up Now
-                                </button>
+                            <button className="bg-[#c9371a] hover:bg-red-600 text-white font-bold py-2 px-6 rounded" onClick={sign}>
+                                Sign Up Now
+                            </button>
                         </div>
                     </div>
                 </div>

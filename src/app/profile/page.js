@@ -4,26 +4,14 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaUserEdit, FaSignOutAlt, FaHistory } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 const profile = () => {
-    const router = useRouter()
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState('profile');
+    const [isEditMode, setIsEditMode] = useState(false);
 
-    const data = async () => {
-        const response = await axios.post(`/api/users/profile`)
-        setUserData(response.data)
-    }
-
-    const history = async () => {
-        const hist = await axios.post(`/api/history`)
-        console.log(hist.data);
-        setHistoryData(hist.data)
-    }
-
-    useEffect(() => {
-        data()
-        history()
-    },[])
+    const { setIsLoggedIn } = useAuth()
 
     const [userData, setUserData] = useState({
         firstname: "",
@@ -37,22 +25,55 @@ const profile = () => {
 
     const [historyData, setHistoryData] = useState([]);
 
+    const data = async () => {
+        const response = await axios.post(`/api/users/profile`);
+        setUserData(response.data);
+    };
+
+    const history = async () => {
+        const hist = await axios.post(`/api/history`);
+        setHistoryData(hist.data);
+    };
+
+    useEffect(() => {
+        data();
+        history();
+    }, []);
+
     const handleTabChange = (tab) => {
         setActiveTab(tab);
     };
 
     const handleUpdateProfile = () => {
-        alert('Profile Updated');
+        if (isEditMode) {
+            axios.put('/api/users/profile', userData)
+                .then(() => {
+                    toast.success('Profile updated successfully');
+                    setIsEditMode(false);
+                })
+                .catch(err => toast.error('Error updating profile'));
+        } else {
+            setIsEditMode(true);
+        }
     };
 
-    const handleLogout = async() => {
+    const handleLogout = async () => {
         try {
-            await axios.get('/api/users/logout')
-            toast.success("Logged out")
-            router.push('/')
+            await axios.get('/api/users/logout');
+            toast.success("Logged out");
+            setIsLoggedIn(false)
+            router.push('/');
         } catch (error) {
-            toast.error(error.response.data.error)   
+            toast.error(error.response.data.error);
         }
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setUserData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
     return (
@@ -86,61 +107,83 @@ const profile = () => {
                             <div>
                                 <label className="block text-gray-400">Name:</label>
                                 <input
+                                    name="firstname"
                                     className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-2 focus:ring-[#c9371a] transition-all duration-300"
-                                    value={userData.firstname + ' ' + userData.lastname}
-                                    readOnly
+                                    value={userData.firstname}
+                                    onChange={handleInputChange}
+                                    readOnly={!isEditMode}
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-400">Age:</label>
+                                <label className="block text-gray-400"> &nbsp;</label>
                                 <input
+                                    name="lastname"
                                     className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-2 focus:ring-[#c9371a] transition-all duration-300"
-                                    value={userData.age}
-                                    readOnly
+                                    value={userData.lastname}
+                                    onChange={handleInputChange}
+                                    readOnly={!isEditMode}
                                 />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-gray-400">Gender:</label>
+                                <label className="block text-gray-400">Age:</label>
                                 <input
+                                    name="age"
                                     className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-2 focus:ring-[#c9371a] transition-all duration-300"
-                                    value={userData.gender}
-                                    readOnly
+                                    value={userData.age}
+                                    onChange={handleInputChange}
+                                    readOnly={!isEditMode}
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-400">Phone:</label>
+                                <label className="block text-gray-400">Gender:</label>
                                 <input
+                                    name="gender"
                                     className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-2 focus:ring-[#c9371a] transition-all duration-300"
-                                    value={userData.phn_no}
-                                    readOnly
+                                    value={userData.gender}
+                                    onChange={handleInputChange}
+                                    readOnly={!isEditMode}
                                 />
                             </div>
                         </div>
                         <div>
+                            <label className="block text-gray-400">Phone:</label>
+                            <input
+                                name="phn_no"
+                                className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-2 focus:ring-[#c9371a] transition-all duration-300"
+                                value={userData.phn_no}
+                                onChange={handleInputChange}
+                                readOnly={!isEditMode}
+                            />
+                        </div>
+                        <div>
                             <label className="block text-gray-400">Email:</label>
                             <input
+                                name="email"
                                 className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-2 focus:ring-[#c9371a] transition-all duration-300"
                                 value={userData.email}
-                                readOnly
+                                onChange={handleInputChange}
+                                readOnly={!isEditMode}
                             />
                         </div>
                         <div>
                             <label className="block text-gray-400">Address:</label>
                             <input
+                                name="address"
                                 className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-2 focus:ring-[#c9371a] transition-all duration-300"
                                 value={userData.address}
-                                readOnly
+                                onChange={handleInputChange}
+                                readOnly={!isEditMode}
                             />
                         </div>
 
                         <div className="flex space-x-4 mt-6 justify-center">
                             <button
                                 onClick={handleUpdateProfile}
-                                className="flex items-center justify-center bg-[#c9371a] py-2 px-4 rounded-full shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-300"
+                                className={`flex items-center justify-center ${isEditMode ? 'bg-green-600' : 'bg-[#c9371a]'} py-2 px-4 rounded-full shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300`}
                             >
-                                <FaUserEdit className="mr-2" /> Update Profile
+                                <FaUserEdit className="mr-2" /> {isEditMode ? "Save Changes" : "Update Profile"}
                             </button>
                             <button
                                 onClick={handleLogout}
@@ -178,5 +221,8 @@ const profile = () => {
         </div>
     );
 };
+
+// export default Profile;
+
 
 export default profile;
