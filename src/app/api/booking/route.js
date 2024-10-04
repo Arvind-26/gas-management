@@ -6,6 +6,25 @@ import User from "@/models/userModel";
 
 connect()
 
+export async function PUT(req) {
+    try {
+        const data = jwtdata(req)
+        const body = await req.json()
+        const { type } = body
+
+        const request = new Request({
+            email: data.email,
+            type: type
+        })
+        await request.save()
+
+        return NextResponse.json({ message: "Request sent" }, { status: 200 })
+
+    } catch (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+}
+
 export async function POST(req) {
     try {
         const data = jwtdata(req)
@@ -15,7 +34,7 @@ export async function POST(req) {
         const existingRequest = await Request.findOne({ email: data.email })
         if (existingRequest) {
             if (!existingRequest.checked) {
-                return NextResponse.json({ message: "Request already sent" }, { status: 208 })
+                return NextResponse.json({ message: "Request already sent" }, { status: 500 })
             }
         }
 
@@ -24,7 +43,7 @@ export async function POST(req) {
             await User.updateOne({ email: data.email }, { $inc: { cylinder: -1 } });
         }
         else {
-            console.log("payment")
+            return NextResponse.json({ message: "Pay" }, { status: 200 })
         }
 
         const request = new Request({

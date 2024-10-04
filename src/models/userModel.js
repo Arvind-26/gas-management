@@ -28,8 +28,7 @@ const userSchema = new mongoose.Schema({
     },
     phn_no: {
         type: Number,
-        required: [true, "phone number is required"],
-        unique: [true, "this phone number already exist"]
+        required: [true, "phone number is required"]
     },
     address: {
         type: String,

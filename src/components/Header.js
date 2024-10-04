@@ -17,7 +17,7 @@ const Header = () => {
             <nav >
                 <div className=' flex justify-between w-full md:px-32 px-5 py-4 absolute z-10 text-white'>
                     <div className=' flex justify-center items-center gap-4'>
-                        <Image src={"/logo.png"} width={100} height={100} className=' md:h-16 md:w-20 h-10 w-12' />
+                        <Image src={"/logo.png"} alt='logo' width={100} height={100} className=' md:h-16 md:w-20 h-10 w-12' />
                         <span className='font-bold md:text-xl text-lg cursor-default'>E GAS</span>
                     </div>
                     <div className='hidden md:flex items-center gap-10 font-semibold'>
@@ -27,7 +27,7 @@ const Header = () => {
                         {isLoggedIn ? <Link href="/profile"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Profile</span></Link> :
                             <></>}
                     </div>
-                    <div className='md:hidden flex items-center gap-10 font-semibold' onClick={toggleSideBar}><i class="fa-solid fa-bars"></i></div>
+                    <div className='md:hidden flex items-center gap-10 font-semibold' onClick={toggleSideBar}><i className="fa-solid fa-bars"></i></div>
                 </div>
                 <div ref={sideBar} className="flex z-30 absolute right-0 hidden">
                     <div className="h-screen w-64 bg-gray-900 text-gray-200">

@@ -18,8 +18,7 @@ const signup = () => {
     const [isProcessing, setIsProcessing] = useState(false)
     const [Amount, setAmount] = useState(9000)
 
-    const handlePayment = async (e) => {
-        e.preventDefault()
+    const handlePayment = async () => {
         setIsProcessing(true);
         try {
             const data = await axios.post(`/api/payment`,
@@ -33,8 +32,9 @@ const signup = () => {
                 name: "E Gas",
                 description: "LPG Purchase",
                 order_id: data.orderId,
-                handler: function (response) {
-                    console.log("Payment Successful", response);
+                handler: async function (response) {
+                    await axios.post(`/api/users/signup`, JSON.stringify(formData))
+                    toast.success("verification email sent sucessfully");
                 },
                 theme: {
                     color: "#3399cc"
@@ -71,14 +71,13 @@ const signup = () => {
             ...prevData,
             [name]: name === "age" || name === "phn_no" ? Number(value) : value,
         }));
-        handlePayment()
     };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`/api/users/signup`, JSON.stringify(formData))
-            toast.success("verification email sent sucessfully");
+            await axios.put(`/api/users/signup`, JSON.stringify(formData))
+            await handlePayment()
         } catch (error) {
             toast.error(error.response.data.message);
         }

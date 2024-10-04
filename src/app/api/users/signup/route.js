@@ -6,6 +6,24 @@ import { sendEmail } from "@/helpers/mailer";
 
 connect()
 
+export async function PUT(req) {
+    try {
+        const body = await req.json()
+        const { email } = body
+
+        console.log(body)
+
+        const existingUser = await User.findOne({ email })
+
+        if (existingUser) {
+            return NextResponse.json({ message: "user already exists" }, { status: 400 })
+        }
+        return NextResponse.json( { status: 200 })
+    } catch (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+}
+
 export async function POST(req) {
     try {
         const body = await req.json()
