@@ -23,8 +23,8 @@ const Header = () => {
                     <div className='hidden md:flex items-center gap-10 font-semibold'>
                         <Link href="/"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Home</span></Link>
                         <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>About</span>
-                        <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Services</span>
-                        {isLoggedIn ? <Link href="/profile"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Profile</span></Link> :
+                        {isLoggedIn ? <><Link href="/profile"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Profile</span></Link> 
+                        <Link href="/dashboard"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Dashboard</span></Link></> :
                             <></>}
                     </div>
                     <div className='md:hidden flex items-center gap-10 font-semibold' onClick={toggleSideBar}><i className="fa-solid fa-bars"></i></div>
@@ -40,10 +40,14 @@ const Header = () => {
                                 <i className="fas fa-home mr-3"></i>
                                 Home
                             </Link>
-                            {isLoggedIn ? <Link href="/profile" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                            {isLoggedIn ? <><Link href="/profile" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                 <i className="fas fa-user mr-3"></i>
                                 Profile
-                            </Link> : <><Link href="/login" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                            </Link>
+                            <Link href="/dashboard" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                                <i className="fas fa-user mr-3"></i>
+                                Dashboard
+                            </Link></> : <><Link href="/login" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                 <i className="fas fa-user mr-3"></i>
                                 Login
                             </Link>

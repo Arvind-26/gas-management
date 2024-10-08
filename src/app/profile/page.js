@@ -3,11 +3,17 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaUserEdit, FaSignOutAlt, FaHistory } from 'react-icons/fa';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../context/AuthContext';
+import Cookies from 'js-cookie';
 
 const profile = () => {
-    const router = useRouter();
+    let cok = Cookies.get('token')
+    const router = useRouter()
+    if (cok) {
+        router.push('/profile')
+    }
     const [activeTab, setActiveTab] = useState('profile');
     const [isEditMode, setIsEditMode] = useState(false);
 
@@ -79,7 +85,7 @@ const profile = () => {
     return (
         <div className="min-h-screen bg-black text-white flex justify-center items-center py-10">
             <ToastContainer />
-            <div className="w-full max-w-2xl md:mt-16 bg-gray-900 rounded-lg shadow-lg p-8 space-y-8 transition-all duration-500 ease-in-out transform hover:scale-105">
+            <div className="w-full max-w-2xl mt-16 bg-gray-900 rounded-lg shadow-lg p-8 space-y-8 transition-all duration-500 ease-in-out transform hover:scale-105">
 
                 <div className="text-center">
                     <h2 className="text-4xl font-bold mb-2">User Profile</h2>

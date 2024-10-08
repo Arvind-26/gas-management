@@ -30,13 +30,20 @@ export async function POST(req) {
 
         const tokenData = {
             id: existingUser._id,
-            email: existingUser.email,
-            isAdmin: existingUser.isAdmin
+            email: existingUser.email
+        }
+        const adminData = {
+            admin: existingUser.isAdmin
         }
 
         const token = jwt.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: '5d'})
 
         const response = NextResponse.json({ message: "Logged in" }, {status: 200})
+
+        if(existingUser.isAdmin){
+             const admin = jwt.sign(adminData, process.env.TOKEN_SECRET, { expiresIn: '5d'})
+             response.cookies.set("admin", admin)
+        }
 
         response.cookies.set("token", token)
 

@@ -34,7 +34,7 @@ const signup = () => {
                 order_id: data.orderId,
                 handler: async function (response) {
                     await axios.post(`/api/users/signup`, JSON.stringify(formData))
-                    toast.success("verification email sent sucessfully");
+                    toast.success("Email set for verification of your account");
                 },
                 theme: {
                     color: "#3399cc"
@@ -92,7 +92,7 @@ const signup = () => {
         <>
         <Script src="https://checkout.razorpay.com/v1/checkout.js" />
             <div ref={instruction} className="flex items-center justify-center min-h-screen bg-black">
-                <div className="w-full max-w-3xl p-8 bg-gray-900 shadow-lg rounded-lg">
+                <div className="w-full max-w-3xl p-8 bg-gray-900 shadow-lg md:mt-10 rounded-lg">
                     <h1 className="text-4xl font-bold text-center text-white mb-8">
                         Join Our Gas Agency as a Customer
                     </h1>

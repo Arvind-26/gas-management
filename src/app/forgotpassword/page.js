@@ -3,8 +3,15 @@ import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const forgotpassword = () => {
+    let cok = Cookies.get('token')
+    const router = useRouter()
+    if (cok) {
+        router.push('/profile')
+    }
     const [email, setEmail] = useState('');
 
     const handleChange = (e) => {
