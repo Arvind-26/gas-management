@@ -38,6 +38,19 @@ const profile = () => {
 
     const history = async () => {
         const hist = await axios.post(`/api/history`);
+        const formatDate = (isoDate) => {
+            const dateObj = new Date(isoDate);
+            const year = dateObj.getFullYear();
+            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+            const day = dateObj.getDate().toString().padStart(2, '0');
+            const hours = dateObj.getHours().toString().padStart(2, '0');
+            const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+            const seconds = dateObj.getSeconds().toString().padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        };
+        hist.data.forEach(item => {
+            item.date = formatDate(item.date);
+        });
         setHistoryData(hist.data);
     };
 
@@ -103,7 +116,7 @@ const profile = () => {
                         className={`flex items-center px-6 py-2 text-lg ${activeTab === 'history' ? 'bg-[#c9371a]' : 'bg-gray-800'} hover:bg-[#e15534] text-white font-medium rounded-full shadow-lg transition-all duration-300`}
                         onClick={() => handleTabChange('history')}
                     >
-                        <FaHistory className="mr-2" /> History
+                        <FaHistory className="mr-2" /> Orders
                     </button>
                 </div>
 
@@ -216,7 +229,7 @@ const profile = () => {
                                     <tr key={index} className="bg-gray-800 hover:bg-gray-700 transition-all duration-300">
                                         <td className="px-6 py-4">{item.date}</td>
                                         <td className="px-6 py-4">{item.type}</td>
-                                        <td className="px-6 py-4">{item.checked + ""}</td>
+                                        <td className="px-6 py-4">{item.checked ? "Yes" : "No"}</td>
                                     </tr>
                                 ))}
                             </tbody>

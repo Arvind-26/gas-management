@@ -3,6 +3,7 @@ import Card from "@/components/Card";
 import Image from "next/image";
 import Link from "next/link"
 import { useAuth } from "./context/AuthContext";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   const { isLoggedIn } = useAuth()
@@ -54,6 +55,7 @@ export default function Home() {
         </div>
       </section>
 
+      <ToastContainer />
       <section className="grid-cols-1 md:grid-cols-4 grid mt-20 mb-10">
         <h1 className="text-[#c9371a] md:text-5xl text-4xl font-bold m-auto">LPG Booking</h1>
         <Card type={"Large"} img={"/home-lpg.png"} price={800} />

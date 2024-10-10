@@ -39,7 +39,7 @@ export async function POST(req) {
         }
 
         const pendingCylinderUser = await User.findOne({ email: data.email })
-        if (pendingCylinderUser.cylinder > 0 && type === "large") {
+        if (pendingCylinderUser.cylinder > 0 && type === "Large") {
             await User.updateOne({ email: data.email }, { $inc: { cylinder: -1 } });
         }
         else {

@@ -1,16 +1,24 @@
 'use client'
-import React, {  useRef } from 'react'
+import React, {  useEffect, useRef, useState } from 'react'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Image from 'next/image'
 import Link from 'next/link'
 import { useAuth } from '@/app/context/AuthContext';
+import Cookies from 'js-cookie';
 
 const Header = () => {
+    const [isAdmin, setIsAdmin] = useState(false)
     const { isLoggedIn } = useAuth()
     const sideBar = useRef(null);
+
     const toggleSideBar = () => {
         sideBar.current.classList.toggle('hidden')
     }
+
+    useEffect(() => {
+        const cok = Cookies.get('admin');
+        setIsAdmin(!!cok);
+    });
 
     return (
         <>
@@ -23,9 +31,10 @@ const Header = () => {
                     <div className='hidden md:flex items-center gap-10 font-semibold'>
                         <Link href="/"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Home</span></Link>
                         <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>About</span>
-                        {isLoggedIn ? <><Link href="/profile"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Profile</span></Link> 
-                        <Link href="/dashboard"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Dashboard</span></Link></> :
+                        {isLoggedIn ? <Link href="/profile"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Profile</span></Link> :
                             <></>}
+                        {isAdmin ?  
+                        <Link href="/dashboard"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Dashboard</span></Link> : <></>}
                     </div>
                     <div className='md:hidden flex items-center gap-10 font-semibold' onClick={toggleSideBar}><i className="fa-solid fa-bars"></i></div>
                 </div>
