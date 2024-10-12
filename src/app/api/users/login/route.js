@@ -3,7 +3,6 @@ import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 import bcryptjs from 'bcryptjs'
 import jwt from "jsonwebtoken"
-import { sendEmail } from "@/helpers/mailer";
 
 connect()
 
@@ -46,6 +45,7 @@ export async function POST(req) {
         }
 
         response.cookies.set("token", token)
+
 
         return response
 

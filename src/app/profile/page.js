@@ -98,7 +98,7 @@ const profile = () => {
     return (
         <div className="min-h-screen bg-black text-white flex justify-center items-center py-10">
             <ToastContainer />
-            <div className="w-full max-w-2xl mt-16 bg-gray-900 rounded-lg shadow-lg p-8 space-y-8 transition-all duration-500 ease-in-out transform hover:scale-105">
+            <div className="w-full max-w-2xl mt-16 bg-gray-900 rounded-lg shadow-lg p-8 space-y-8 transition-all duration-500 ease-in-out transform md:hover:scale-105">
 
                 <div className="text-center">
                     <h2 className="text-4xl font-bold mb-2">User Profile</h2>
@@ -240,8 +240,5 @@ const profile = () => {
         </div>
     );
 };
-
-// export default Profile;
-
 
 export default profile;

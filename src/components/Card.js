@@ -20,7 +20,6 @@ const Card = ({ type, img, price }) => {
         }
         setIsProcessing(true);
         try {
-
             const data1 = await axios.post(`/api/booking`,
                 JSON.stringify({ type: type })
             );
@@ -39,7 +38,7 @@ const Card = ({ type, img, price }) => {
                     order_id: data.orderId,
                     handler: async function (response) {
                         await axios.put(`/api/booking`,
-                            JSON.stringify({ type: type })
+                            JSON.stringify({ type: type, orderId: response.razorpay_payment_id})
                         );
                         toast.success('Booked Sucessfully')
                     },

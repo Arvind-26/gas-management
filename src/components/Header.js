@@ -1,5 +1,5 @@
 'use client'
-import React, {  useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Image from 'next/image'
 import Link from 'next/link'
@@ -33,8 +33,8 @@ const Header = () => {
                         <span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>About</span>
                         {isLoggedIn ? <Link href="/profile"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Profile</span></Link> :
                             <></>}
-                        {isAdmin ?  
-                        <Link href="/dashboard"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Dashboard</span></Link> : <></>}
+                        {isAdmin ?
+                            <Link href="/dashboard"><span className=' hover:text-[#c9371a] duration-[0.5s] cursor-pointer'>Dashboard</span></Link> : <></>}
                     </div>
                     <div className='md:hidden flex items-center gap-10 font-semibold' onClick={toggleSideBar}><i className="fa-solid fa-bars"></i></div>
                 </div>
@@ -45,26 +45,26 @@ const Header = () => {
                         </div>
 
                         <nav className="mt-10">
-                            <Link href="/" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                            <Link href="/" onClick={toggleSideBar} className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                 <i className="fas fa-home mr-3"></i>
                                 Home
                             </Link>
-                            {isLoggedIn ? <><Link href="/profile" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                            {isLoggedIn ? <><Link href="/profile" onClick={toggleSideBar} className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                 <i className="fas fa-user mr-3"></i>
                                 Profile
                             </Link>
-                            <Link href="/dashboard" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
-                                <i className="fas fa-user mr-3"></i>
-                                Dashboard
-                            </Link></> : <><Link href="/login" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
-                                <i className="fas fa-user mr-3"></i>
-                                Login
-                            </Link>
-                                <Link href="/signup" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                                {isAdmin ? <Link href="/dashboard" onClick={toggleSideBar} className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                                    <i className="fas fa-user mr-3"></i>
+                                    Dashboard
+                                </Link> : <></>}</> : <><Link href="/login" onClick={toggleSideBar} className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                                    <i className="fas fa-user mr-3"></i>
+                                    Login
+                                </Link>
+                                <Link href="/signup" onClick={toggleSideBar} className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                     <i className="fas fa-user mr-3"></i>
                                     Sign Up
                                 </Link></>}
-                            <Link href="#" className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+                            <Link href="#" onClick={toggleSideBar} className="flex items-center px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
                                 <i className="fas fa-cog mr-3"></i>
                                 About
                             </Link>

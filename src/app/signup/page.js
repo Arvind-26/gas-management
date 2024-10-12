@@ -33,6 +33,10 @@ const signup = () => {
                 description: "LPG Purchase",
                 order_id: data.orderId,
                 handler: async function (response) {
+                    setFormData((prevFormData) => ({
+                        ...prevFormData,   
+                        orderId: response.razorpay_payment_id
+                    }));
                     await axios.post(`/api/users/signup`, JSON.stringify(formData))
                     toast.success("Email set for verification of your account");
                 },
@@ -62,6 +66,7 @@ const signup = () => {
         password: "",
         phn_no: undefined,
         address: "",
+        orderId:""
     });
 
     const handleChange = (e) => {

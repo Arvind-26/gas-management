@@ -3,6 +3,7 @@ import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 import bcryptjs from 'bcryptjs'
 import { sendEmail } from "@/helpers/mailer";
+import { sendEmailForPaymentSuccess } from "@/helpers/receiptMail";
 
 connect()
 
@@ -27,7 +28,7 @@ export async function PUT(req) {
 export async function POST(req) {
     try {
         const body = await req.json()
-        const { firstname, lastname, age, gender, email, password, phn_no, address } = body
+        const { firstname, lastname, age, gender, email, password, phn_no, address, orderId } = body
 
         console.log(body)
 
@@ -53,6 +54,9 @@ export async function POST(req) {
         const saveUser = await newUser.save()
 
         await sendEmail({ email, emailType: "VERIFY", userId: saveUser._id })
+        
+        const d = new Date();
+        await sendEmailForPaymentSuccess({ email,emailType:"NEW", quantity:12, customerName:firstname, size:"Large", amount:9000, paymentDate:`${d.getDate()}-${d.getMonth()}-${d.getFullYear()}`, orderId:orderId})
 
         return NextResponse.json({ message: "signup sucessful" }, { status: 200 })
 
