@@ -3,6 +3,7 @@ import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 import bcryptjs from 'bcryptjs'
 import jwt from "jsonwebtoken"
+import { sendEmail } from "@/helpers/mailer";
 
 connect()
 
@@ -24,7 +25,7 @@ export async function POST(req) {
         }
         else if(!existingUser.isVerified){
             await sendEmail({email, emailType: "VERIFY", userId: existingUser._id})
-            return NextResponse.json({ message: "User not verified" }, { status: 400 })
+            return NextResponse.json({ message: "User not verified, Verification email sent" }, { status: 400 })
         }
 
         const tokenData = {

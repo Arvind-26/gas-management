@@ -13,7 +13,6 @@ export const sendEmailForPaymentSuccess = async ({ email, emailType, quantity, c
         });
 
         const mailOptions = {
-            from: 'arvind1.test@gmail.com',
             to: email,
             subject: emailType === "NEW" ? "Welcome to E Gas" : "Payment Success",
             text: "Hello world?",
