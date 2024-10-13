@@ -1,19 +1,19 @@
 import nodemailer from 'nodemailer'
 
-export const sendEmailForPaymentSuccess = async ({ email,emailType,quantity, customerName, size, amount, paymentDate,orderId}) => {
+export const sendEmailForPaymentSuccess = async ({ email, emailType, quantity, customerName, size, amount, paymentDate, orderId }) => {
 
     try {
         const transport = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io",
-            port: 2525,
+            host: "smtp.gmail.com",
+            port: 465,
             auth: {
-              user: process.env.USER,
-              pass: process.env.PASSWORD
+                user: process.env.USER,
+                pass: process.env.PASSWORD
             }
-          });
+        });
 
         const mailOptions = {
-            from: 'arvind@gmail.com',
+            from: 'arvind1.test@gmail.com',
             to: email,
             subject: emailType === "NEW" ? "Welcome to E Gas" : "Payment Success",
             text: "Hello world?",
@@ -122,8 +122,8 @@ export const sendEmailForPaymentSuccess = async ({ email,emailType,quantity, cus
 </body>
 </html>
 `
-:
-`<!DOCTYPE html>
+                :
+                `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
