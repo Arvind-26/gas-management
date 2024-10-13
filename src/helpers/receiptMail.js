@@ -7,8 +7,8 @@ export const sendEmailForPaymentSuccess = async ({ email,emailType,quantity, cus
             host: "sandbox.smtp.mailtrap.io",
             port: 2525,
             auth: {
-              user: "4978ce167ba365",
-              pass: "17f06d351dfefb"
+              user: process.env.USER,
+              pass: process.env.PASSWORD
             }
           });
 
