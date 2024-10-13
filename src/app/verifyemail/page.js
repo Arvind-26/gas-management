@@ -1,6 +1,6 @@
 'use client'
-import React from 'react'
-import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,8 +13,12 @@ const verifyemail = () => {
     if (cok) {
         router.push('/profile')
     }
-    const searchParams = useSearchParams();
-    let token = searchParams.get("token");
+    const [token, setToken] = useState(null);
+
+    useEffect(()=>{
+        const tokenFromUrl = window.location.href.split("=")[1];
+        setToken(tokenFromUrl);
+      },[])
 
     const verifyEmail = async () => {
         setIsProcessing(true)

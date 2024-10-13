@@ -1,17 +1,19 @@
 'use client'
 import axios from 'axios';
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const setpassword = () => {
     const router = useRouter()
     const [isProcessing, setIsProcessing] = useState(false)
+    const [token, setToken] = useState(null);
 
-    const searchParams = useSearchParams();
-    let token = searchParams.get("token");
+    useEffect(()=>{
+        const tokenFromUrl = window.location.href.split("=")[1];
+        setToken(tokenFromUrl);
+      },[])
 
     const [password, setPassword] = useState('');
     const [cnfPassword, setCnfPassword] = useState('');
