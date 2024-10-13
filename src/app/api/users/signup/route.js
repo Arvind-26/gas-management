@@ -12,8 +12,6 @@ export async function PUT(req) {
         const body = await req.json()
         const { email } = body
 
-        console.log(body)
-
         const existingUser = await User.findOne({ email })
 
         if (existingUser) {
@@ -29,8 +27,6 @@ export async function POST(req) {
     try {
         const body = await req.json()
         const { firstname, lastname, age, gender, email, password, phn_no, address, orderId } = body
-
-        console.log(body)
 
         const existingUser = await User.findOne({ email })
 
